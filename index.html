@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Nguyễn Kim Hiếu</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Custom Animations & Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        slate: {
+                            850: '#161b2a', 
+                            950: '#0a0f1c', 
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Be Vietnam Pro"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        
+        body { font-family: 'Be Vietnam Pro', sans-serif; }
+        
+        .fade-in { animation: fadeIn 0.7s ease-out forwards; opacity: 0; }
+        .slide-up { animation: slideUp 0.7s ease-out forwards; opacity: 0; transform: translateY(20px); }
+        
+        @keyframes fadeIn { to { opacity: 1; } }
+        @keyframes slideUp { to { opacity: 1; transform: translateY(0); } }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0a0f1c; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #3b82f6; }
+
+        .gradient-title {
+            line-height: 1.4 !important;
+            padding-top: 0.2em;
+            padding-bottom: 0.1em;
+            display: block;
+            overflow: visible !important;
+        }
+
+        .title-container {
+            border: 2px solid rgba(59, 130, 246, 0.2);
+            border-radius: 2rem;
+            padding: 2rem;
+            display: inline-block;
+            background: rgba(30, 41, 59, 0.3);
+            backdrop-filter: blur(8px);
+        }
+    </style>
+</head>
+<body class="bg-[#0a0f1c] text-slate-200 selection:bg-blue-500/30">
+
+    <!-- NAVIGATION -->
+    <nav class="sticky top-0 z-50 bg-[#0a0f1c]/80 backdrop-blur-md border-b border-slate-800 shadow-xl">
+        <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-2 cursor-pointer" onclick="switchTab('about')">
+                <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center shadow-lg shadow-blue-900/40">
+                    <span class="text-white font-bold">P</span>
+                </div>
+                <span class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-indigo-400">
+                     Portfolio
+                </span>
+            </div>
+
+            <div class="hidden md:flex space-x-2">
+                <button onclick="switchTab('about')" id="nav-about" class="nav-btn flex items-center space-x-2 px-4 py-2 rounded-lg transition-all text-slate-400 hover:bg-slate-800 hover:text-white">
+                    <i data-lucide="user" class="w-4 h-4"></i>
+                    <span class="font-medium">I. Giới thiệu</span>
+                </button>
+                <button onclick="switchTab('projects')" id="nav-projects" class="nav-btn flex items-center space-x-2 px-4 py-2 rounded-lg transition-all text-slate-400 hover:bg-slate-800 hover:text-white">
+                    <i data-lucide="book-open" class="w-4 h-4"></i>
+                    <span class="font-medium">II. Dự án</span>
+                </button>
+                <button onclick="switchTab('conclusion')" id="nav-conclusion" class="nav-btn flex items-center space-x-2 px-4 py-2 rounded-lg transition-all text-slate-400 hover:bg-slate-800 hover:text-white">
+                    <i data-lucide="check-circle" class="w-4 h-4"></i>
+                    <span class="font-medium">III. Tổng kết</span>
+                </button>
+            </div>
+
+            <button class="md:hidden p-2 text-slate-400 hover:text-white" onclick="toggleMobileMenu()">
+                <i data-lucide="menu" id="menu-icon"></i>
+            </button>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden bg-[#0f172a] border-b border-slate-800 p-4 space-y-2">
+            <button onclick="switchTab('about')" class="w-full flex items-center space-x-2 px-4 py-2 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white">
+                <i data-lucide="user" class="w-4 h-4"></i><span>Giới thiệu</span>
+            </button>
+            <button onclick="switchTab('projects')" class="w-full flex items-center space-x-2 px-4 py-2 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white">
+                <i data-lucide="book-open" class="w-4 h-4"></i><span>Dự án</span>
+            </button>
+            <button onclick="switchTab('conclusion')" class="w-full flex items-center space-x-2 px-4 py-2 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white">
+                <i data-lucide="check-circle" class="w-4 h-4"></i><span>Tổng kết</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto px-4 py-12 min-h-screen">
+        
+        <!-- SECTION: ABOUT ME -->
+        <div id="section-about" class="section-content slide-up">
+            <div class="space-y-12">
+                <div class="text-center space-y-8 pt-12 pb-8">
+                    <div class="title-container">
+                        <h1 class="gradient-title text-5xl md:text-8xl font-extrabold tracking-normal text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400 uppercase italic">
+                            Giới Thiệu
+                        </h1>
+                    </div>
+                    <p class="text-slate-400 text-lg md:text-xl font-light">
+                         <span class="text-white font-medium">  </span>  Nhập môn công nghệ số & ứng dụng trí tuệ nhân tạo
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="bg-[#161b2a] p-10 rounded-[2.5rem] border border-slate-800/50 hover:border-blue-500/30 transition-all shadow-xl group">
+                        <div class="flex items-center gap-4 mb-8">
+                            <div class="w-12 h-12 rounded-2xl bg-blue-600/10 flex items-center justify-center text-blue-400 group-hover:bg-blue-600 group-hover:text-white transition-all">
+                                <i data-lucide="user" class="w-6 h-6"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white uppercase tracking-tight">Bản thân</h3>
+                        </div>
+                        <div class="space-y-6">
+                            <div class="space-y-2">
+                                <p class="text-xs font-bold text-slate-500 uppercase tracking-widest">Họ và tên</p>
+                                <p class="text-xl font-medium text-slate-200">Nguyễn Kim Hiếu</p>
+                            </div>
+                            <div class="h-px bg-slate-800 w-full"></div>
+                            <div class="space-y-2">
+                                <p class="text-xs font-bold text-slate-500 uppercase tracking-widest">Mã Học Phần</p>
+                                <p class="text-xl font-medium text-slate-200">HUS.A1</p>
+                            </div>
+                            <div class="h-px bg-slate-800 w-full"></div>
+                            <div class="space-y-2">
+                                <p class="text-xs font-bold text-slate-500 uppercase tracking-widest">Mã Lớp</p>
+                                <div class="flex flex-wrap gap-2 pt-1">
+                                    <span class="px-3 py-1 bg-slate-800 rounded-full text-sm text-slate-300"> VNU1001_E2510001 HUS.A</span>
+                                    
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-[#161b2a] p-10 rounded-[2.5rem] border border-slate-800/50 hover:border-indigo-500/30 transition-all shadow-xl group">
+                        <div class="flex items-center gap-4 mb-8">
+                            <div class="w-12 h-12 rounded-2xl bg-indigo-600/10 flex items-center justify-center text-indigo-400 group-hover:bg-indigo-600 group-hover:text-white transition-all">
+                                <i data-lucide="target" class="w-6 h-6"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white uppercase tracking-tight">Đôi lời gửi gắm </h3>
+                        </div>
+                        <div class="space-y-8">
+                            <div class="space-y-3">
+                                <div class="flex items-center gap-2 text-indigo-400 font-bold uppercase text-xs tracking-wider">
+                                    <i data-lucide="graduation-cap" class="w-4 h-4"></i> Mục Tiêu
+                                </div>
+                                <p class="text-slate-300 leading-relaxed">
+                                    Xin chào mọi người, mình là Hiếu, sinh viên Kỹ thuật điện tử & Tin học tại      HUS-VNU.Với mục tiêu có thể nắm vững các công cụ công nghệ hiện đại để hỗ trợ tối ưu cho công việc và học tập.
+                            </div>
+                            <div class="space-y-3">
+                                <div class="flex items-center gap-2 text-emerald-400 font-bold uppercase text-xs tracking-wider">
+                                    <i data-lucide="rocket" class="w-4 h-4"></i> Định hướng phát triển
+                                </div>
+                                <p class="text-slate-300 leading-relaxed">
+                                     Mình mong muốn trở thành một người có khả năng ứng dụng công nghệ để giải quyết các vấn đề thực tiễn. Và nếu có cơ hội mình thực sự mong muốn vươn tới vị trí chuyên viên phân tích dữ liệu hoặc quản trị dự án số trong tương lai.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="md:col-span-2 bg-gradient-to-br from-slate-900 to-[#0f172a] p-10 rounded-[2.5rem] border border-slate-800 shadow-2xl relative overflow-hidden group">
+                        <div class="absolute top-0 right-0 w-64 h-64 bg-blue-600/5 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
+                        <div class="relative z-10 flex flex-col md:flex-row gap-10 items-start">
+                            <div class="md:w-1/3 space-y-4">
+                                <div class="w-14 h-14 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 shadow-lg shadow-emerald-900/20">
+                                    <i data-lucide="folder-git-2" class="w-7 h-7"></i>
+                                </div>
+                                <h3 class="text-3xl font-black text-white uppercase tracking-tight leading-none">Mục tiêu Portfolio 
+                            </div>
+                            <div class="md:w-2/3 grid gap-4">
+                                <div class="flex items-start gap-4 p-4 rounded-2xl bg-slate-800/30 border border-slate-700/50">
+                                    <i data-lucide="check-circle" class="text-emerald-500 mt-1"></i>
+                                    <p class="text-slate-200 font-medium">Thể hiện các kỹ năng số đã học được qua quá trình rèn luyện.</p>
+                                </div>
+                                <div class="flex items-start gap-4 p-4 rounded-2xl bg-slate-800/30 border border-slate-700/50">
+                                    <i data-lucide="database" class="text-blue-500 mt-1"></i>
+                                    <p class="text-slate-200 font-medium">Lưu trữ sản phẩm cá nhân để dễ dàng truy cập và chia sẻ.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION: PROJECTS -->
+        <div id="section-projects" class="section-content hidden">
+            <div id="project-list-view" class="space-y-12 slide-up">
+                <div class="text-center max-w-2xl mx-auto space-y-4">
+                    <h2 class="text-3xl font-bold text-white uppercase tracking-tight">Hành Trình Dự Án</h2>
+                    <p class="text-slate-400">Nhập môn công nghệ số & ứng dụng trí tuệ nhân tạo</p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="projects-grid"></div>
+            </div>
+
+            <div id="project-detail-view" class="hidden slide-up">
+                <div class="max-w-4xl mx-auto">
+                    <button onclick="hideProjectDetail()" class="flex items-center gap-2 text-slate-500 hover:text-blue-400 mb-8 font-medium transition-colors">
+                        <i data-lucide="arrow-left" class="w-4 h-4"></i> Quay lại danh sách
+                    </button>
+                    <div id="detail-content" class="space-y-10"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION: CONCLUSION -->
+        <div id="section-conclusion" class="section-content hidden slide-up">
+            <div class="max-w-3xl mx-auto space-y-12">
+                <div class="text-center space-y-4">
+                    <div class="inline-block p-5 bg-blue-900/20 text-blue-400 rounded-3xl mb-4 border border-blue-800/30 shadow-2xl shadow-blue-900/20"><i data-lucide="check-circle" class="w-12 h-12"></i></div>
+                    <h2 class="text-4xl font-extrabold text-white">Tổng Kết Hành Trình</h2>
+                    <p class="text-slate-400">Nhìn lại những gì đã trải qua và định hướng tương lai số.</p>
+                </div>
+                <div class="space-y-8">
+                    <section class="bg-[#161b2a] p-8 rounded-3xl border border-slate-800/50 shadow-xl space-y-4">
+                        <h3 class="text-xl font-bold flex items-center gap-3 text-white"><i data-lucide="message-square" class="w-5 h-5 text-blue-400"></i> Trải nghiệm cá nhân</h3>
+                        <p class="text-slate-400 leading-relaxed text-lg">Hy vọng rằng qua Portfolio này, mọi người đã hiểu thêm về đam mê và tư duy công nghệ của mình. Đối với mình, việc tổng hợp lại các dự án của học phần không chỉ là bài tập, mà là cơ hội để nhìn lại bản thân xem mình còn thiếu thứ gì, từ đó chuẩn bị tốt nhất cho những mục tiêu cao hơn trong học kỳ tới. Mình thấy rất vui khi tìm tòi và tạo được ra một portfolio cho riêng mình hy vọng điều này cũng lan tỏa tinh thần ham học hỏi tới tất cả mọi người .</p>
+                        <p class="text-slate-400 leading-relaxed text-lg">Hành trình trở thành một chuyên viên phân tích dữ liệu vẫn còn dài, và mình rất mong nhận được những lời khuyên từ thầy cô và các bạn để vững bước hơn trên con đường này.Rất mong được thầy cô và bạn bè góp ý thành tâm để Portfolio này trở nên hoàn thiện hơn.Cảm ơn mọi người đã quan tâm và theo dõi!</p>
+                        <p class="text-slate-400 leading-relaxed text-lg">Best Regard!</p>
+                        
+                    </section>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-[#050810] border-t border-slate-800 py-16 mt-20 text-center">
+        <p class="text-slate-600 text-[10px] font-bold uppercase tracking-[0.3em] mb-4">Nguyễn Kim Hiếu</p>
+        <p class="text-white text-2xl font-black tracking-tight">25000854@hus.edu.vn </p>
+    </footer>
+
+    <script>
+        const projects = [
+            { 
+                id: 1, 
+                title: "Bài tập 1 - mục 1.4", 
+                subtitle: "Thao tác cơ bản với tệp tin và thư mục", 
+                icon: "cpu", 
+                fullDescription: `
+                    <div class="space-y-4">
+                        <details class="group bg-slate-800/30 rounded-xl border border-slate-700/50 open:bg-slate-800/50 transition-all duration-300">
+                            <summary class="flex justify-between items-center cursor-pointer p-4 list-none [&::-webkit-details-marker]:hidden">
+                                <div class="flex items-center gap-3"><div class="w-8 h-8 rounded-lg bg-blue-500/20 flex items-center justify-center text-blue-400 font-bold text-xs">01</div><h4 class="text-white font-bold text-sm uppercase tracking-wider">Giới Thiệu</h4></div>
+                                <span class="text-slate-400 group-open:rotate-180 transition-transform duration-300"><i data-lucide="chevron-down" class="w-5 h-5"></i></span>
+                            </summary>
+                            <div class="px-4 pb-4 pt-0 text-sm text-slate-300 border-t border-slate-700/50 mt-2 pt-4">
+                                <p>Kỹ năng quản lý thư mục là một kỹ năng cơ bản mà không chỉ sinh viên mà cả người đi làm cần phải có để quản lý dữ liệu của mình một cách hiệu quả. Việc tái cấu trúc hệ thống lưu trữ thông tin không chỉ giúp dữ liệu trở nên khoa học mà còn trực tiếp làm gia tăng hiệu suất làm việc ,tốc độ truy xuất thông tin khi cần thiết.</p>
+                            </div>
+                        </details>
+                    </div>`,
+                embedVideo: "", // Đã xóa video ở Chương 1
+                embedPdf: "bai1a.pdf", 
+                type: "" 
+            },
+            { 
+                id: 2, 
+                title: "Bài tập 2 - mục 2.4", 
+                subtitle: "Tìm kiếm và đánh giá thông tin học thuật", 
+                icon: "database", 
+                fullDescription: `
+                    <div class="space-y-4">
+                        <details class="group bg-slate-800/30 rounded-xl border border-slate-700/50 open:bg-slate-800/50 transition-all duration-300">
+                            <summary class="flex justify-between items-center cursor-pointer p-4 list-none [&::-webkit-details-marker]:hidden">
+                                <div class="flex items-center gap-3"><div class="w-8 h-8 rounded-lg bg-blue-500/20 flex items-center justify-center text-blue-400 font-bold text-xs">01</div><h4 class="text-white font-bold text-sm uppercase tracking-wider">Giới Thiệu</h4></div>
+                                <span class="text-slate-400 group-open:rotate-180 transition-transform duration-300"><i data-lucide="chevron-down" class="w-5 h-5"></i></span>
+                            </summary>
+                            <div class="px-4 pb-4 pt-0 text-sm text-slate-300 border-t border-slate-700/50 mt-2 pt-4 space-y-3">
+                                <p>Trong kỷ nguyên công nghệ hiện nay, chúng ta thật may mắn khi có sự hỗ trợ từ AI và các công cụ tìm kiếm hiện đại. Những trợ thủ này đã giúp giảm bớt đáng kể công sức khi cần tìm kiếm thông tin hay tài liệu học thuật.</p>
+                                <p>Thay vì chỉ tìm kiếm theo cách truyền thống và nhận về nhiều kết quả gây nhiễu, tôi đã học cách sử dụng các toán tử tìm kiếm . Điều này không chỉ giúp mình tiết kiệm thời gian mà còn đảm bảo những thông tin thu thập được luôn chính xác và đáng tin cậy.</p>
+                            </div>
+                        </details>
+                    </div>`, 
+                embedPdf: "bai2.pdf",
+                type: "" 
+            },
+            { 
+                id: 3, 
+                title: "Bài tập 2 - mục 3.4", 
+                subtitle: "Viết prompts hiệu quả cho các tác vụ học tập", 
+                icon: "award", 
+                fullDescription: `
+                    <div class="space-y-4">
+                        <details class="group bg-slate-800/30 rounded-xl border border-slate-700/50 open:bg-slate-800/50 transition-all duration-300">
+                            <summary class="flex justify-between items-center cursor-pointer p-4 list-none [&::-webkit-details-marker]:hidden">
+                                <div class="flex items-center gap-3"><div class="w-8 h-8 rounded-lg bg-blue-500/20 flex items-center justify-center text-blue-400 font-bold text-xs">01</div><h4 class="text-white font-bold text-sm uppercase tracking-wider">Tổng quan</h4></div>
+                                <span class="text-slate-400 group-open:rotate-180 transition-transform duration-300"><i data-lucide="chevron-down" class="w-5 h-5"></i></span>
+                            </summary>
+                            <div class="px-4 pb-4 pt-0 text-sm text-slate-300 border-t border-slate-700/50 mt-2 pt-4">
+                                <p>Trong kỷ nguyên AI, viết Prompt không chỉ là nhập vài dòng chữ vào khung chat. Đó là một kỹ năng số thiết yếu gọi là Prompt Engineering. Bí quyết nằm ở sự thay đổi tư duy: Đừng coi AI là công cụ tìm kiếm trả lời rập khuôn, hãy coi nó là một cộng sự cần được định hướng cụ thể</p>
+                            </div>
+                        </details>
+                    </div>`,
+                embedPdf: "bai3.pdf",
+                type: "" 
+            },
+            { 
+                id: 4, 
+                title: "Bài tập 3 - mục 4.4", 
+                subtitle: " Sử dụng công cụ hợp tác trực tuyến cho dự án nhóm", 
+                icon: "share-2", 
+                fullDescription: `
+                    <div class="space-y-4">
+                        <details class="group bg-slate-800/30 rounded-xl border border-slate-700/50 open:bg-slate-800/50 transition-all duration-300">
+                            <summary class="flex justify-between items-center cursor-pointer p-4 list-none [&::-webkit-details-marker]:hidden">
+                                <div class="flex items-center gap-3"><div class="w-8 h-8 rounded-lg bg-blue-500/20 flex items-center justify-center text-blue-400 font-bold text-xs">01</div><h4 class="text-white font-bold text-sm uppercase tracking-wider">Giới Thiệu</h4></div>
+                                <span class="text-slate-400 group-open:rotate-180 transition-transform duration-300"><i data-lucide="chevron-down" class="w-5 h-5"></i></span>
+                            </summary>
+                            <div class="px-4 pb-4 pt-0 text-sm text-slate-300 border-t border-slate-700/50 mt-2 pt-4">
+                                <p>Tìm hiểu các công cụ làm việc nhóm trực tuyến phổ biến và kỹ năng giao tiếp chuyên nghiệp trong môi trường số.</p>
+                            </div>
+                        </details>
+                    </div>`,
+                embedPdf: "bai4.pdf",
+                type: "" 
+            },
+            { 
+                id: 5, 
+                title: "Bài tập 2 - Mục 5.4", 
+                subtitle: "Sử dụng AI tạo sinh để hỗ trợ sáng tạo nội dung", 
+                icon: "pen-tool", 
+                fullDescription: `
+                    <div class="space-y-4">
+                        <details class="group bg-slate-800/30 rounded-xl border border-slate-700/50 open:bg-slate-800/50 transition-all duration-300">
+                            <summary class="flex justify-between items-center cursor-pointer p-4 list-none [&::-webkit-details-marker]:hidden">
+                                <div class="flex items-center gap-3"><div class="w-8 h-8 rounded-lg bg-blue-500/20 flex items-center justify-center text-blue-400 font-bold text-xs">01</div><h4 class="text-white font-bold text-sm uppercase tracking-wider">Giới Thiệu</h4></div>
+                                <span class="text-slate-400 group-open:rotate-180 transition-transform duration-300"><i data-lucide="chevron-down" class="w-5 h-5"></i></span>
+                            </summary>
+                            <div class="px-4 pb-4 pt-0 text-sm text-slate-300 border-t border-slate-700/50 mt-2 pt-4">
+                                <p>Giới thiệu các công cụ thiết kế đồ họa và biên tập video đơn giản để tạo ra các sản phẩm nội dung số thu hút.</p>
+                            </div>
+                        </details>
+                    </div>`,
+                // CHUYỂN VIDEO SANG ĐÂY:
+                embedVideo: "giải_mã_học_máy.mp4", 
+                embedPdf: "bai5.pdf",
+                type: "" 
+            },
+            { 
+                id: 6, 
+                title: "Bài tập 4 - mục 6.4", 
+                subtitle: " Sử dụng AI có trách nhiệm trong học tập và nghiên cứu ", 
+                icon: "shield", 
+                fullDescription: `
+                    <div class="space-y-4">
+                        <details class="group bg-slate-800/30 rounded-xl border border-slate-700/50 open:bg-slate-800/50 transition-all duration-300">
+                            <summary class="flex justify-between items-center cursor-pointer p-4 list-none [&::-webkit-details-marker]:hidden">
+                                <div class="flex items-center gap-3"><div class="w-8 h-8 rounded-lg bg-blue-500/20 flex items-center justify-center text-blue-400 font-bold text-xs">01</div><h4 class="text-white font-bold text-sm uppercase tracking-wider">Giới Thiệu</h4></div>
+                                <span class="text-slate-400 group-open:rotate-180 transition-transform duration-300"><i data-lucide="chevron-down" class="w-5 h-5"></i></span>
+                            </summary>
+                            <div class="px-4 pb-4 pt-0 text-sm text-slate-300 border-t border-slate-700/50 mt-2 pt-4">
+                                <p>Nhận thức về an toàn thông tin cá nhân, bản quyền số và tuân thủ các quy tắc đạo đức trích dẫn trong học thuật.</p>
+                            </div>
+                        </details>
+                    </div>`,
+                embedPdf: "bai6a.pdf",
+                type: "" 
+            }
+        ];
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.section-content').forEach(el => el.classList.add('hidden'));
+            const target = document.getElementById(`section-${tabId}`);
+            if(target) target.classList.remove('hidden');
+            document.querySelectorAll('.nav-btn').forEach(btn => { 
+                btn.classList.remove('bg-blue-600', 'text-white', 'shadow-lg'); 
+                btn.classList.add('text-slate-400'); 
+            });
+            const activeBtn = document.getElementById(`nav-${tabId}`);
+            if(activeBtn) { 
+                activeBtn.classList.remove('text-slate-400'); 
+                activeBtn.classList.add('bg-blue-600', 'text-white', 'shadow-lg'); 
+            }
+            document.getElementById('mobile-menu').classList.add('hidden');
+            if(tabId === 'projects') hideProjectDetail();
+        }
+
+        function renderProjects() {
+            const grid = document.getElementById('projects-grid');
+            grid.innerHTML = projects.map(p => `
+                <div class="group bg-[#161b2a] rounded-3xl border border-slate-800/50 p-6 hover:shadow-2xl transition-all hover:-translate-y-2 hover:border-blue-500/30">
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="p-4 bg-slate-800/50 text-blue-400 rounded-2xl group-hover:bg-blue-600 group-hover:text-white transition-all border border-slate-700/50"><i data-lucide="${p.icon}"></i></div>
+                        <span class="text-[10px] font-bold px-2.5 py-1 bg-blue-900/30 text-blue-400 rounded-lg uppercase border border-blue-800/40">Chương ${p.id}</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-white group-hover:text-blue-400 transition-colors">${p.title}</h3>
+                    <p class="text-sm font-medium text-slate-400 mb-6">${p.subtitle}</p>
+                    <div class="pt-6 border-t border-slate-800/50 flex items-center justify-between">
+                        <span class="text-[10px] font-bold text-slate-600 uppercase tracking-tighter">${p.type}</span>
+                        <button onclick="showProjectDetail(${p.id})" class="text-sm font-bold text-blue-400 flex items-center gap-1 hover:text-blue-300 transition-colors">Chi tiết <i data-lucide="chevron-right" class="w-4 h-4"></i></button>
+                    </div>
+                </div>
+            `).join('');
+            lucide.createIcons();
+        }
+
+        function showProjectDetail(id) {
+            const project = projects.find(p => p.id === id);
+            if (!project) return;
+            document.getElementById('project-list-view').classList.add('hidden');
+            document.getElementById('project-detail-view').classList.remove('hidden');
+            
+            // Logic hiển thị VIDEO
+            const videoEmbedHtml = project.embedVideo ? `
+                <div class="mt-8 border border-slate-700/50 rounded-2xl overflow-hidden shadow-2xl bg-black">
+                    <div class="bg-slate-900/50 px-4 py-2 border-b border-slate-700/50 flex items-center justify-between">
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Video minh họa</span>
+                        <i data-lucide="play-circle" class="w-4 h-4 text-blue-400"></i>
+                    </div>
+                    <div class="aspect-video w-full">
+                        ${project.embedVideo.includes('youtube.com') || project.embedVideo.includes('youtu.be') ? 
+                            `<iframe src="${project.embedVideo.replace('watch?v=', 'embed/')}" class="w-full h-full" frameborder="0" allowfullscreen></iframe>` :
+                            `<video controls class="w-full h-full">
+                                <source src="${project.embedVideo}" type="video/mp4">
+                                Trình duyệt không hỗ trợ xem video.
+                            </video>`
+                        }
+                    </div>
+                </div>
+            ` : '';
+
+            // Logic hiển thị PDF
+            const pdfEmbedHtml = (project.embedPdf && project.embedPdf !== "ĐƯỜNG_DẪN_FILE_PDF_CỦA_BẠN") ? `
+                <div class="mt-8 border border-slate-700/50 rounded-2xl overflow-hidden shadow-2xl">
+                    <div class="bg-slate-900/50 px-4 py-2 border-b border-slate-700/50 flex items-center justify-between">
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Bản xem trước tài liệu</span>
+                        <a href="${project.embedPdf}" target="_blank" class="text-blue-400 hover:text-white text-xs flex items-center gap-1"><i data-lucide="external-link" class="w-3 h-3"></i> Mở rộng</a>
+                    </div>
+                    <object data="${project.embedPdf}" type="application/pdf" class="w-full h-[650px] bg-white">
+                        <div class="flex flex-col items-center justify-center h-full text-slate-500 p-8 text-center">
+                            <p class="mb-2">Trình duyệt của bạn không hỗ trợ xem trước PDF trực tiếp.</p>
+                            <a href="${project.embedPdf}" target="_blank" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm transition-colors">Tải xuống để xem</a>
+                        </div>
+                    </object>
+                </div>
+            ` : '';
+
+            // Chỉ hiển thị phần "Chi tiết" (fullDescription), "Video" và "Xem trước PDF"
+            const fullDescriptionHtml = project.fullDescription ? `
+                <div class="bg-[#161b2a] p-8 rounded-3xl border border-slate-800/50 shadow-2xl space-y-6">
+                    <h3 class="text-2xl font-bold flex items-center gap-3 text-white">
+                        <i data-lucide="file-text" class="text-blue-400"></i> 
+                        Chi tiết
+                    </h3>
+                    <div class="text-slate-400 leading-relaxed text-lg">${project.fullDescription}</div>
+                </div>
+            ` : '';
+
+            document.getElementById('detail-content').innerHTML = `
+                <div class="space-y-4">
+                    <span class="px-3 py-1 bg-blue-900/20 text-blue-400 rounded-full text-sm font-bold uppercase tracking-wider">Chương ${project.id}</span>
+                    <h2 class="text-4xl font-extrabold text-white">${project.title}</h2>
+                    <p class="text-xl text-blue-300/80 font-medium">${project.subtitle}</p>
+                </div>
+                <div class="space-y-8">
+                    ${fullDescriptionHtml}
+                    ${videoEmbedHtml}
+                    ${pdfEmbedHtml}
+                </div>
+            `;
+            lucide.createIcons();
+            window.scrollTo(0, 0);
+        }
+
+        function hideProjectDetail() { 
+            document.getElementById('project-detail-view').classList.add('hidden'); 
+            document.getElementById('project-list-view').classList.remove('hidden'); 
+            window.scrollTo(0, 0); 
+        }
+        
+        function toggleMobileMenu() { 
+            const menu = document.getElementById('mobile-menu'); 
+            menu.classList.toggle('hidden'); 
+            lucide.createIcons();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => { 
+            renderProjects(); 
+            switchTab('about'); 
+            lucide.createIcons();
+        });
+    </script>
+</body>
+</html>
